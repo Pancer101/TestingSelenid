@@ -1,0 +1,32 @@
+plugins {
+    id 'java' // Общий плагин для всех подпроектов
+}
+
+allprojects {
+    // Общие репозитории
+    repositories {
+        mavenCentral()
+    }
+}
+
+    group = 'com.example'
+    version = '1.0-SNAPSHOT'
+
+    dependencies {
+        testImplementation('org.junit.jupiter:junit-jupiter:5.9.3')
+        implementation("com.codeborne:selenide:7.9.3")
+        implementation("org.slf4j:slf4j-api:2.0.17")
+        implementation('ch.qos.logback:logback-classic:1.2.11')
+    }
+
+    tasks.withType(Test) {
+        useJUnitPlatform()
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+test {
+    useJUnitPlatform()
+}
