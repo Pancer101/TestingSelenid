@@ -3,23 +3,25 @@ package com.pages.forms;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+import static com.utils.TimeoutDuration.TIMEOUT_LOW;
+import static java.lang.String.format;
 
 public class PracticeFormPage {
 
     @Getter
-    public final static String END_POINT = "/automation-practice-form";
+    private final static String END_POINT = "/automation-practice-form";
 
     // Локаторы (вставь свои значения)
     private final SelenideElement firstNameInput = $("#firstName");  // First Name
     private final SelenideElement lastNameInput = $("#lastName");   // Last Name
     private final SelenideElement emailInput = $("#userEmail");      // Email
-    private final SelenideElement genderMaleRadio = $("#"); // Gender Male
-    private final SelenideElement genderFemaleRadio = $("#");// Gender Female
-    private final SelenideElement genderOtherRadio = $("#"); // Gender Other
-    private final SelenideElement mobileInput = $("#");     // Mobile Number
+    private final String genderRadio = "//div[@id='genterWrapper']//label[text()='%s']//preceding-sibling::input";
+    private final SelenideElement mobileInput = $("#userNumber");     // Mobile Number
     private final SelenideElement dateOfBirthInput = $("#"); // Date of Birth
-    private final SelenideElement subjectsInput = $("#");    // Subjects
+    private final SelenideElement subjectsInput = $("#subjectsInput");    // Subjects
     private final SelenideElement hobbiesSportsCheckbox = $("#");  // Hobbies Sports
     private final SelenideElement hobbiesReadingCheckbox = $("#"); // Hobbies Reading
     private final SelenideElement hobbiesMusicCheckbox = $("#");   // Hobbies Music
@@ -29,37 +31,32 @@ public class PracticeFormPage {
     private final SelenideElement cityDropdown = $("#");           // City dropdown
     private final SelenideElement submitButton = $("#");           // Submit button
 
-    // Методы для заполнения полей
 
     public PracticeFormPage setFirstName(String firstName) {
-        firstNameInput.sendKeys(firstName);
+        firstNameInput
+                .should(exist, TIMEOUT_LOW)
+                .sendKeys(firstName);
         return this;
     }
 
     public PracticeFormPage setLastName(String lastName) {
-        lastNameInput.sendKeys(lastName);
+        lastNameInput
+                .should(exist, TIMEOUT_LOW)
+                .sendKeys(lastName);
         return this;
     }
 
     public PracticeFormPage setEmail(String email) {
-        emailInput.sendKeys(email);
+        emailInput
+                .should(exist, TIMEOUT_LOW)
+                .sendKeys(email);
         return this;
     }
 
     public PracticeFormPage selectGender(String gender) {
-        switch (gender.toLowerCase()) {
-            case "male":
-                genderMaleRadio.click();
-                break;
-            case "female":
-                genderFemaleRadio.click();
-                break;
-            case "other":
-                genderOtherRadio.click();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid gender: " + gender);
-        }
+        $x(format(genderRadio, gender))
+                .should(exist, TIMEOUT_LOW)
+                .click();
         return this;
     }
 

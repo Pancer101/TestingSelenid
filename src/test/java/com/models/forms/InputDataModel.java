@@ -10,7 +10,7 @@ public class InputDataModel {
     private String firstName;
     private String lastName;
     private String email;
-    private String gender;
+    private Gender gender;
     private String mobileNumber;
     private LocalDate dateOfBirth;
     private String subjects;
@@ -25,6 +25,10 @@ public class InputDataModel {
         private Boolean sports;
         private Boolean reading;
         private Boolean music;
+    }
+
+    public enum Gender {
+        Male, Female, Other
     }
 }
 
