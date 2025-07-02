@@ -1,6 +1,7 @@
 package com.pages.forms;
 
 import com.codeborne.selenide.SelenideElement;
+import com.models.forms.InputDataModel;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Condition.exist;
@@ -12,13 +13,12 @@ import static java.lang.String.format;
 public class PracticeFormPage {
 
     @Getter
-    private final static String END_POINT = "/automation-practice-form";
+    private final String END_POINT = "/automation-practice-form";
 
-    // Локаторы (вставь свои значения)
     private final SelenideElement firstNameInput = $("#firstName");  // First Name
     private final SelenideElement lastNameInput = $("#lastName");   // Last Name
     private final SelenideElement emailInput = $("#userEmail");      // Email
-    private final String genderRadio = "//div[@id='genterWrapper']//label[text()='%s']//preceding-sibling::input";
+    private final String genderRadio = "//div[@id='genterWrapper']//label[text()='%s']//preceding-sibling::input//parent::div";
     private final SelenideElement mobileInput = $("#userNumber");     // Mobile Number
     private final SelenideElement dateOfBirthInput = $("#"); // Date of Birth
     private final SelenideElement subjectsInput = $("#subjectsInput");    // Subjects
@@ -30,7 +30,6 @@ public class PracticeFormPage {
     private final SelenideElement stateDropdown = $("#");          // State dropdown
     private final SelenideElement cityDropdown = $("#");           // City dropdown
     private final SelenideElement submitButton = $("#");           // Submit button
-
 
     public PracticeFormPage setFirstName(String firstName) {
         firstNameInput
@@ -47,13 +46,14 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage setEmail(String email) {
+        email = format("%s@%s.%s", email, email, email);
         emailInput
                 .should(exist, TIMEOUT_LOW)
                 .sendKeys(email);
         return this;
     }
 
-    public PracticeFormPage selectGender(String gender) {
+    public PracticeFormPage selectGender(InputDataModel.Gender gender) {
         $x(format(genderRadio, gender))
                 .should(exist, TIMEOUT_LOW)
                 .click();
@@ -114,6 +114,15 @@ public class PracticeFormPage {
 
     public PracticeFormPage clickSubmit() {
         submitButton.click();
+        return this;
+    }
+
+
+    public PracticeFormPage setAll(InputDataModel dataModel) {
+        setFirstName(dataModel.getFirstName())
+                .setLastName(dataModel.getLastName())
+                .setEmail(dataModel.getEmail())
+                .selectGender(dataModel.getGender());
         return this;
     }
 }

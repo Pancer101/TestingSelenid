@@ -3,7 +3,6 @@ package com.tests.forms;
 import com.models.forms.InputDataModel;
 import com.pages.forms.PracticeFormPage;
 import com.settings.BaseTest;
-import io.qameta.allure.Description;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,14 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 
-public class test extends BaseTest {
+public class PracticeFormTest extends BaseTest {
 
-    PracticeFormPage practiceFormPage = new PracticeFormPage();
+    private final PracticeFormPage practiceFormPage = new PracticeFormPage();
     private final InputDataModel dataModel = new EasyRandom().nextObject(InputDataModel.class);
 
     @BeforeEach
     void before() {
-        open(PracticeFormPage.getEND_POINT());
+        open(practiceFormPage.getEND_POINT());
     }
 
     @Test
@@ -45,6 +44,6 @@ public class test extends BaseTest {
     @Test
     @DisplayName("")
     void radioGenderTest() {
-
+        practiceFormPage.setAll(dataModel);
     }
 }

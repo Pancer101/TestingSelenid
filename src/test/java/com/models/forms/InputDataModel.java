@@ -1,11 +1,15 @@
 package com.models.forms;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.List;
 
-@Data
+@Setter
+@Getter
 public class InputDataModel {
     private String firstName;
     private String lastName;
@@ -17,10 +21,10 @@ public class InputDataModel {
     private Hobbies hobbies;
     private final File file = new File("src\\main\\resources\\Voldemort.jpg");
     private String currentAddress;
-    private String state;
-    private String city;
+    private State state;
 
-    @Data
+    @Setter
+    @Getter
     public static class Hobbies {
         private Boolean sports;
         private Boolean reading;
@@ -29,6 +33,18 @@ public class InputDataModel {
 
     public enum Gender {
         Male, Female, Other
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum State {
+        NCR("NCR", List.of("Delhi", "Gurgaon", "Noida")),
+        UTTAR_PRADESH("Uttar Pradesh", List.of("Agra", "Lucknow", "Merrut")),
+        HARYANA("Haryana", List.of("Karnal", "Panipat")),
+        RAJASTHAN("Rajasthan", List.of("Jaipur", "Jaiselmer"));
+
+        private final String state;
+        private final List<String> city;
     }
 }
 

@@ -34,6 +34,7 @@ dependencies {
 
     implementation "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
     testImplementation "org.jeasy:easy-random-core:$randomCoreVersion"
     implementation"org.aeonbits.owner:owner:$ownerVersion"
