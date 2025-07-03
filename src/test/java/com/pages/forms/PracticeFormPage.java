@@ -9,6 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.utils.TimeoutDuration.TIMEOUT_LOW;
 import static java.lang.String.format;
+import static java.lang.String.valueOf;
 
 public class PracticeFormPage {
 
@@ -46,7 +47,7 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage setEmail(String email) {
-        email = format("%s@%s.%s", email, email, email);
+        email = format("%s@%s.com", email, email);
         emailInput
                 .should(exist, TIMEOUT_LOW)
                 .sendKeys(email);
@@ -60,8 +61,10 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage setMobileNumber(String mobile) {
-        mobileInput.sendKeys(mobile);
+    public PracticeFormPage setMobileNumber(int mobile) {
+        mobileInput
+                .should(exist, TIMEOUT_LOW)
+                .sendKeys(valueOf(Math.abs(mobile)));
         return this;
     }
 

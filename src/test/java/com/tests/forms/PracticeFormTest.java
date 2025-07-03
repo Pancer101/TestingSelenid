@@ -42,6 +42,20 @@ public class PracticeFormTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("") // За что отвечает?
+    void selectGenderTest() {
+        practiceFormPage
+                .selectGender(dataModel.getGender()); // Почему getGender, а не Gender?
+    }
+
+    @Test
+    @DisplayName("")
+    void fieldMobileNumberTest() {
+        practiceFormPage
+                .setMobileNumber(dataModel.getMobileNumber());
+    }
+
+    @Test
     @DisplayName("")
     void radioGenderTest() {
         practiceFormPage.setAll(dataModel);

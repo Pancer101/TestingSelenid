@@ -15,7 +15,7 @@ public class InputDataModel {
     private String lastName;
     private String email;
     private Gender gender;
-    private String mobileNumber;
+    private int mobileNumber;
     private LocalDate dateOfBirth;
     private String subjects;
     private Hobbies hobbies;
