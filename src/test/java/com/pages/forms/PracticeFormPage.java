@@ -1,7 +1,7 @@
 package com.pages.forms;
 
 import com.codeborne.selenide.SelenideElement;
-import com.models.forms.InputDataModel;
+import com.models.forms.DataModel;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Condition.exist;
@@ -53,7 +53,7 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage selectGender(InputDataModel.Gender gender) {
+    public PracticeFormPage selectGender(DataModel.Gender gender) {
         $x(format(genderRadio, gender))
                 .should(exist, TIMEOUT_LOW)
                 .click();
@@ -118,11 +118,12 @@ public class PracticeFormPage {
     }
 
 
-    public PracticeFormPage setAll(InputDataModel dataModel) {
+    public PracticeFormPage setAll(DataModel dataModel) {
         setFirstName(dataModel.getFirstName())
                 .setLastName(dataModel.getLastName())
                 .setEmail(dataModel.getEmail())
-                .selectGender(dataModel.getGender());
+                .selectGender(dataModel.getGender())
+                .setMobileNumber(dataModel.getMobileNumber());
         return this;
     }
 }

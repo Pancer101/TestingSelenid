@@ -38,6 +38,7 @@ dependencies {
 
     testImplementation "org.jeasy:easy-random-core:$randomCoreVersion"
     implementation"org.aeonbits.owner:owner:$ownerVersion"
+    testImplementation 'org.apache.commons:commons-lang3:3.17.0'
 }
 
 tasks.test {
