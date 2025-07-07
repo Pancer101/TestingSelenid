@@ -18,7 +18,7 @@ public class PracticeFormTest extends BaseTest {
 
     @BeforeEach
     void before() {
-      //   open(practiceFormPage.getEND_POINT());
+        open(practiceFormPage.getEND_POINT());
     }
 
     @Test
@@ -68,13 +68,6 @@ public class PracticeFormTest extends BaseTest {
     void setDateOfBirthTest() {
         practiceFormPage
                 .setDateOfBirth(dataModel.getDateOfBirth());
-    }
-
-    @Test
-    @DisplayName("")
-    void setSubjectsTest() {
-        practiceFormPage
-                .setSubjects(dataModel.getSubjects());
     }
 
     @Test

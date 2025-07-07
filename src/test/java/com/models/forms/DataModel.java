@@ -15,7 +15,7 @@ public class DataModel {
     private String lastName;
     private String email;
     private Gender gender;
-    private int mobileNumber;
+    private String mobileNumber;
     private LocalDate dateOfBirth;
     private String subjects;
     private Hobbies hobbies;
