@@ -1,6 +1,7 @@
 package com.tests.forms;
 
-import com.models.forms.InputDataModel;
+import com.models.forms.DataModel;
+import com.models.forms.Generator;
 import com.pages.forms.PracticeFormPage;
 import com.settings.BaseTest;
 import org.jeasy.random.EasyRandom;
@@ -13,11 +14,11 @@ import static com.codeborne.selenide.Selenide.open;
 public class PracticeFormTest extends BaseTest {
 
     private final PracticeFormPage practiceFormPage = new PracticeFormPage();
-    private final InputDataModel dataModel = new EasyRandom().nextObject(InputDataModel.class);
+    private final DataModel dataModel = new Generator().generateRandomData();
 
     @BeforeEach
     void before() {
-        open(practiceFormPage.getEND_POINT());
+      //   open(practiceFormPage.getEND_POINT());
     }
 
     @Test
@@ -39,6 +40,7 @@ public class PracticeFormTest extends BaseTest {
     void fieldEmailTest() {
         practiceFormPage
                 .setEmail(dataModel.getEmail());
+        
     }
 
     @Test

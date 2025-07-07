@@ -10,7 +10,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class InputDataModel {
+public class DataModel {
     private String firstName;
     private String lastName;
     private String email;
