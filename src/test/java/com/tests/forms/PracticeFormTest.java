@@ -50,6 +50,12 @@ public class PracticeFormTest extends BaseTest {
 
     @Test
     @DisplayName("")
+    void radioGenderTest() {
+        practiceFormPage.setAll(dataModel);
+    }
+
+    @Test
+    @DisplayName("")
     void fieldMobileNumberTest() {
         practiceFormPage
                 .setMobileNumber(dataModel.getMobileNumber());
@@ -57,7 +63,22 @@ public class PracticeFormTest extends BaseTest {
 
     @Test
     @DisplayName("")
-    void radioGenderTest() {
-        practiceFormPage.setAll(dataModel);
+    void setDateOfBirthTest() {
+        practiceFormPage
+                .setDateOfBirth(dataModel.getDateOfBirth());
+    }
+
+    @Test
+    @DisplayName("")
+    void setSubjectsTest() {
+        practiceFormPage
+                .setSubjects(dataModel.getSubjects());
+    }
+
+    @Test
+    @DisplayName("")
+    void setSubjectsTest() {
+        practiceFormPage
+                .setSubjects(dataModel.getSubjects());
     }
 }

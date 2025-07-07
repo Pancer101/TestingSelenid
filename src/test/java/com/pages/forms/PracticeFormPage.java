@@ -4,6 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import com.models.forms.InputDataModel;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -21,7 +23,7 @@ public class PracticeFormPage {
     private final SelenideElement emailInput = $("#userEmail");      // Email
     private final String genderRadio = "//div[@id='genterWrapper']//label[text()='%s']//preceding-sibling::input//parent::div";
     private final SelenideElement mobileInput = $("#userNumber");     // Mobile Number
-    private final SelenideElement dateOfBirthInput = $("#"); // Date of Birth
+    private final SelenideElement dateOfBirthInput = $("#dateOfBirthInput"); // Date of Birth
     private final SelenideElement subjectsInput = $("#subjectsInput");    // Subjects
     private final SelenideElement hobbiesSportsCheckbox = $("#");  // Hobbies Sports
     private final SelenideElement hobbiesReadingCheckbox = $("#"); // Hobbies Reading
@@ -68,13 +70,25 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage setDateOfBirth(String date) {
-        dateOfBirthInput.sendKeys(date);
+    public PracticeFormPage setDateOfBirth(LocalDate date) {
+
+        System.out.println(date);
+        String year = valueOf(date.getYear());
+        String month = valueOf(date.getMonthValue());
+        String day = valueOf(date.getDayOfMonth());
+
+        dateOfBirthInput.click();
+        $x("//select[@class='react-datepicker__year-select']").selectOption(year);
+        $x("//select[@class='react-datepicker__month-select']").selectOptionByValue(month);
+        $x("//div[@class='react-datepicker__month']//div[text()='" + day + "']").click();
+
         return this;
     }
 
     public PracticeFormPage setSubjects(String subjects) {
-        subjectsInput.sendKeys(subjects);
+        subjectsInput
+                .should(exist, TIMEOUT_LOW)
+                .sendKeys(subjects);
         return this;
     }
 
@@ -119,7 +133,6 @@ public class PracticeFormPage {
         submitButton.click();
         return this;
     }
-
 
     public PracticeFormPage setAll(InputDataModel dataModel) {
         setFirstName(dataModel.getFirstName())
