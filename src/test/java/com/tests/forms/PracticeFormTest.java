@@ -23,6 +23,14 @@ public class PracticeFormTest extends BaseTest {
 
     @Test
     @DisplayName("")
+    void setAllTest() {
+        practiceFormPage
+                .setAll(dataModel)
+                .clickSubmit();
+    }
+
+    @Test
+    @DisplayName("")
     void fieldFirstNameTest() {
         practiceFormPage
                 .setFirstName(dataModel.getFirstName());
@@ -72,8 +80,37 @@ public class PracticeFormTest extends BaseTest {
 
     @Test
     @DisplayName("")
-    void setSubjectsTest() {
+    void setSubjectTest() {
         practiceFormPage
-                .setSubjects(dataModel.getSubjects());
+                .setSubject(dataModel.getSubject());
+    }
+
+    @Test
+    @DisplayName("")
+    void setHobbiesTest() {
+        practiceFormPage
+                .setHobbies(dataModel.getHobbies());
+    }
+
+    @Test
+    @DisplayName("")
+    void uploadPictureTest() {
+        practiceFormPage
+                .uploadPicture(dataModel.getFile());
+    }
+
+    @Test
+    @DisplayName("")
+    void setCurrentAddressTest() {
+        practiceFormPage
+                .setCurrentAddress(dataModel.getCurrentAddress());
+    }
+
+    @Test
+    @DisplayName("")
+    void selectStateCityTest() {
+        practiceFormPage
+                .selectState(dataModel.getState())
+                .selectCity(dataModel.getState());
     }
 }

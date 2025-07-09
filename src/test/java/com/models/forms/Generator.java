@@ -19,7 +19,7 @@ public class Generator {
         model.setGender(randomEnum(DataModel.Gender.class));
         model.setMobileNumber(generateMobileNumber());
         model.setDateOfBirth(LocalDate.now().minusYears(randomInteger(2)));
-        model.setSubjects("в ДУШЕ НЕ ЕБУ НАДО ПОСМОТРЕТЬ");
+        model.setSubject(randomEnum(DataModel.Subject.class));
 
         DataModel.Hobbies hobbies = new DataModel.Hobbies();
         hobbies.setMusic(random.nextBoolean());

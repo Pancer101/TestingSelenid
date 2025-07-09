@@ -17,7 +17,7 @@ public class DataModel {
     private Gender gender;
     private String mobileNumber;
     private LocalDate dateOfBirth;
-    private String subjects;
+    private Subject subject;
     private Hobbies hobbies;
     private final File file = new File("src\\main\\resources\\Voldemort.jpg");
     private String currentAddress;
@@ -33,6 +33,10 @@ public class DataModel {
 
     public enum Gender {
         Male, Female, Other
+    }
+
+    public enum Subject {
+        English, Maths, Physics, Arts, History, Civics, Chemistry
     }
 
     @Getter

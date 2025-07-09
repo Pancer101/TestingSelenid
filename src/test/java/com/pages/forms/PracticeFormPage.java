@@ -4,7 +4,9 @@ import com.codeborne.selenide.SelenideElement;
 import com.models.forms.DataModel;
 import lombok.Getter;
 
+import java.io.File;
 import java.time.LocalDate;
+import java.util.Random;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
@@ -12,6 +14,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.utils.TimeoutDuration.TIMEOUT_LOW;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
+import static org.openqa.selenium.Keys.ENTER;
 
 public class PracticeFormPage {
 
@@ -25,14 +28,12 @@ public class PracticeFormPage {
     private final SelenideElement mobileInput = $("#userNumber");     // Mobile Number
     private final SelenideElement dateOfBirthInput = $("#dateOfBirthInput"); // Date of Birth
     private final SelenideElement subjectsInput = $("#subjectsInput");    // Subjects
-    private final SelenideElement hobbiesSportsCheckbox = $("#");  // Hobbies Sports
-    private final SelenideElement hobbiesReadingCheckbox = $("#"); // Hobbies Reading
-    private final SelenideElement hobbiesMusicCheckbox = $("#");   // Hobbies Music
-    private final SelenideElement pictureUploadInput = $("#");     // Picture upload input
-    private final SelenideElement currentAddressTextarea = $("#"); // Current Address
-    private final SelenideElement stateDropdown = $("#");          // State dropdown
-    private final SelenideElement cityDropdown = $("#");           // City dropdown
-    private final SelenideElement submitButton = $("#");           // Submit button
+    private final String hobbiesCheckbox = "//input[@id='hobbies-checkbox-%s']/parent::div";  // Hobbies Sports
+    private final SelenideElement pictureUploadInput = $("#uploadPicture");     // Picture upload input
+    private final SelenideElement currentAddressTextarea = $("#currentAddress"); // Current Address
+    private final SelenideElement stateDropdown = $x("//input[@id='react-select-3-input']");          // State dropdown
+    private final SelenideElement cityDropdown = $x("//input[@id='react-select-4-input']");           // City dropdown
+    private final SelenideElement submitButton = $("#submit");           // Submit button
 
     public PracticeFormPage setFirstName(String firstName) {
         firstNameInput
@@ -49,7 +50,6 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage setEmail(String email) {
-        email = format("%s@%s.com", email, email);
         emailInput
                 .should(exist, TIMEOUT_LOW)
                 .sendKeys(email);
@@ -85,28 +85,39 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage setSubjects(String subjects) {
+    public PracticeFormPage setSubject(DataModel.Subject subject) {
+
         subjectsInput
                 .should(exist, TIMEOUT_LOW)
-                .sendKeys(subjects);
+                .sendKeys(valueOf(subject));
+        subjectsInput
+                .sendKeys(ENTER);
+
         return this;
     }
 
-    public PracticeFormPage setHobbies(boolean sports, boolean reading, boolean music) {
-        if (sports && !hobbiesSportsCheckbox.isSelected()) {
-            hobbiesSportsCheckbox.click();
+    public PracticeFormPage setHobbies(DataModel.Hobbies hobbies) {
+
+        if (hobbies.getSports()) {
+            $x(format(hobbiesCheckbox, 1))
+                    .should(exist, TIMEOUT_LOW)
+                    .click();
         }
-        if (reading && !hobbiesReadingCheckbox.isSelected()) {
-            hobbiesReadingCheckbox.click();
+        if (hobbies.getReading()) {
+            $x(format(hobbiesCheckbox, 2))
+                    .should(exist, TIMEOUT_LOW)
+                    .click();
         }
-        if (music && !hobbiesMusicCheckbox.isSelected()) {
-            hobbiesMusicCheckbox.click();
+        if (hobbies.getMusic()) {
+            $x(format(hobbiesCheckbox, 3))
+                    .should(exist, TIMEOUT_LOW)
+                    .click();
         }
         return this;
     }
 
-    public PracticeFormPage uploadPicture(String filePath) {
-        pictureUploadInput.uploadFile(new java.io.File(filePath));
+    public PracticeFormPage uploadPicture(File filePath) {
+        pictureUploadInput.uploadFile(filePath);
         return this;
     }
 
@@ -115,17 +126,16 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage selectState(String state) {
-        stateDropdown.click();
-        // Тут можно выбрать нужный state из выпадающего списка
-        // Например:
-        // $("//div[contains(text(),'" + state + "')]").click();
+    public PracticeFormPage selectState(DataModel.State state) {
+        stateDropdown
+                .should(exist, TIMEOUT_LOW)
+                .sendKeys(valueOf(state.getState())+ENTER);
         return this;
     }
 
-    public PracticeFormPage selectCity(String city) {
-        cityDropdown.click();
-        // Аналогично выбор города
+    public PracticeFormPage selectCity(DataModel.State city) {
+        cityDropdown.should(exist, TIMEOUT_LOW)
+                .sendKeys(valueOf(city.getCity().get(new Random().nextInt(city.getCity().size())))+ENTER);
         return this;
     }
 
@@ -139,7 +149,14 @@ public class PracticeFormPage {
                 .setLastName(dataModel.getLastName())
                 .setEmail(dataModel.getEmail())
                 .selectGender(dataModel.getGender())
-                .setMobileNumber(dataModel.getMobileNumber());
+                .setMobileNumber(dataModel.getMobileNumber())
+                .setDateOfBirth(dataModel.getDateOfBirth())
+                .setSubject(dataModel.getSubject())
+                .setHobbies(dataModel.getHobbies())
+                .uploadPicture(dataModel.getFile())
+                .setCurrentAddress(dataModel.getCurrentAddress())
+                .selectState(dataModel.getState())
+                .selectCity(dataModel.getState());
         return this;
     }
 }
