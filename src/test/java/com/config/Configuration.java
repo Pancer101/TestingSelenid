@@ -18,4 +18,7 @@ public interface Configuration extends Config{
 
     @Key("browser.size")
     String browserSize();
+
+    @Key("browser.version")
+    String browserVersion();
 }

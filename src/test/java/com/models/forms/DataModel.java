@@ -22,6 +22,7 @@ public class DataModel {
     private final File file = new File("src\\main\\resources\\Voldemort.jpg");
     private String currentAddress;
     private State state;
+    private String selectedCity;
 
     @Setter
     @Getter

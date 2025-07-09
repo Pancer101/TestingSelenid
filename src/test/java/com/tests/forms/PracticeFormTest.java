@@ -26,7 +26,8 @@ public class PracticeFormTest extends BaseTest {
     void setAllTest() {
         practiceFormPage
                 .setAll(dataModel)
-                .clickSubmit();
+                .clickSubmit()
+                .checkResult(dataModel);
     }
 
     @Test
@@ -111,6 +112,6 @@ public class PracticeFormTest extends BaseTest {
     void selectStateCityTest() {
         practiceFormPage
                 .selectState(dataModel.getState())
-                .selectCity(dataModel.getState());
+                .selectCity(dataModel);
     }
 }
