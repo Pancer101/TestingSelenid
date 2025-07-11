@@ -19,6 +19,8 @@ ext {
     lombokVersion = '1.18.38'
     randomCoreVersion = '5.0.0'
     ownerVersion = '1.0.12'
+    apacheVersion = '3.17.0'
+    assertjVersion = '3.24.2'
 }
 
 dependencies {
@@ -38,7 +40,8 @@ dependencies {
 
     testImplementation "org.jeasy:easy-random-core:$randomCoreVersion"
     implementation"org.aeonbits.owner:owner:$ownerVersion"
-    testImplementation 'org.apache.commons:commons-lang3:3.17.0'
+    testImplementation "org.apache.commons:commons-lang3:$apacheVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
 }
 
 tasks.test {

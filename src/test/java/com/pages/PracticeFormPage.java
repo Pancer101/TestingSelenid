@@ -1,4 +1,4 @@
-package com.pages.forms;
+package com.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import com.models.forms.DataModel;

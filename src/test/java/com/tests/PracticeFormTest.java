@@ -1,10 +1,9 @@
-package com.tests.forms;
+package com.tests;
 
 import com.models.forms.DataModel;
 import com.models.forms.Generator;
-import com.pages.forms.PracticeFormPage;
+import com.pages.PracticeFormPage;
 import com.settings.BaseTest;
-import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
