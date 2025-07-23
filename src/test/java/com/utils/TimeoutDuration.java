@@ -9,4 +9,5 @@ public class TimeoutDuration {
     public static final Duration TIMEOUT_LONG = ofSeconds(15);
     public static final Duration TIMEOUT_MIDDLE = ofSeconds(10);
     public static final Duration TIMEOUT_LOW = ofSeconds(5);
+    public static final Duration TIMEOUT_ONE = ofSeconds(1);
 }

@@ -12,11 +12,6 @@ public class SomeFeaturesTest extends BaseTest {
 
     private final SomeFeaturesPages someFeaturesPages = new SomeFeaturesPages();
 
-    @BeforeEach
-    void before() {
-        open(someFeaturesPages.getEND_POINT());
-    }
-
     @Test
     @DisplayName("")
     void checkColorTest() {

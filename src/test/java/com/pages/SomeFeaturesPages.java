@@ -11,7 +11,7 @@ import java.util.Random;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static com.utils.TimeoutDuration.*;
 
 public class SomeFeaturesPages {
 
@@ -24,7 +24,6 @@ public class SomeFeaturesPages {
     private final SelenideElement slider = $("#sliderContainer input[type='range']");
     private final SelenideElement sliderValue = $("#sliderValue");
 
-    @Getter private final String END_POINT = "/";
     @Getter private final String END_POINT_COLOR = "/dynamic-properties";
     @Getter private final String END_POINT_WINDOWS = "/browser-windows";
     @Getter private final String END_POINT_CHECKBOX = "/checkbox";
@@ -33,20 +32,9 @@ public class SomeFeaturesPages {
 
     public SomeFeaturesPages checkColorChange() {
 
-        // Получаем начальный цвет кнопки
-        String initialColor = colorButton.getCssValue("color");
-
-        // Ожидание изменения цвета с проверкой
-        Selenide.Wait().withTimeout(Duration.ofSeconds(5)).until(d -> {
-            String currentColor = colorButton.getCssValue("color");
-            return !currentColor.equals(initialColor);
-        });
-
-        // Получаем конечный цвет для проверки
-        String finalColor = colorButton.getCssValue("color");
-
-        // Проверяем, что цвет изменился
-        //assertThat(finalColor).isNotEqualTo(initialColor);
+        colorButton
+                .shouldHave(cssValue("color","rgba(255, 255, 255, 1)"), TIMEOUT_MIDDLE)
+                .shouldNotHave(cssValue("color","rgba(255, 255, 255, 1)"), TIMEOUT_MIDDLE);
 
         return this;
     }
@@ -86,7 +74,7 @@ public class SomeFeaturesPages {
         // Генерируем случайное значение от 0 до 100
         Random random = new Random();
         int randomValue = random.nextInt(101); // 0 до 100 включительно
-        double percentage = (double) (randomValue-1) / 100; // Преобразуем в процент для смещения
+        double percentage = (double) (randomValue) / 100; // Преобразуем в процент для смещения
 
         // Получаем ширину слайдера
         int sliderWidth = slider.getSize().width;
@@ -98,12 +86,6 @@ public class SomeFeaturesPages {
                 .moveByOffset(movePixels - (sliderWidth / 2), 0) // Смещение относительно центра
                 .release()
                 .perform();
-
-        // Ждем, пока значение в поле sliderValue обновится
-        sliderValue.shouldHave(value(String.valueOf(randomValue)));
-
-        // Получаем текущее значение для проверки
-        String actualValue = sliderValue.getValue();
 
         // Проверяем значение через shouldHave
         sliderValue.shouldHave(value(String.valueOf(randomValue)));
